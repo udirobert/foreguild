@@ -373,8 +373,15 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
       <dt>verdict_status</dt><dd>upheld · challenge window closed 2026-12-04 18:00 UTC</dd>
     </dl>
   </div>
-  <p>Signed by Foreguild's receipt key, anchored on Gnosis, fetchable by anything that can read a
-    chain or call a REST/MCP endpoint. Three properties make it a product rather than a log line:</p>
+  <p>Signed by Foreguild's receipt key, anchored on-chain — Gnosis in production, Base for the
+    specimen shipped here — fetchable by anything that can read a chain or call a REST/MCP
+    endpoint. The format is already running, not just specified: this
+    submission ships a specimen receipt (<a href="evidence/receipt.json"><code>receipt.json</code></a>)
+    whose digest is anchored on Base by a deployed <code>ReceiptAnchor</code> contract
+    (<a href="https://basescan.org/address/0x8fEBbbc356F4AFBB8FA9c43F46Bd2bEdA327e95A">0x8fEB…e95A</a>,
+    source in <code>evidence/receipt-anchor/</code>) — anyone can call
+    <code>verify(0x5ea1…fee8)</code> and get <code>true</code>. Three properties make it a product
+    rather than a log line:</p>
   <ul class="ls">
     <li><b>Portable.</b> A worker carries it to any counterparty — proof of quality that doesn't
       depend on staying on Foreguild. Portability is what makes agents <i>want</i> tasks here:
@@ -773,7 +780,9 @@ medianVerdict(taskId) -&gt; { score, threshold, verdict: "upheld" | "failed" }</
     // fetchable by anything that can read a chain or call REST/MCP
 
 issueReceipt(taskId) -&gt; receiptHash
-verifyReceipt(receipt) -&gt; bool     // the entire VaaS product is this function, sold</pre></div>
+verifyReceipt(receipt) -&gt; bool     // the entire VaaS product is this function, sold
+// already live: ReceiptAnchor.verify(bytes32) on Base —
+// 0x8fEBbbc356F4AFBB8FA9c43F46Bd2bEdA327e95A (specimen receipt in evidence/)</pre></div>
 
   <h3>Calibration — the record that re-prices judges</h3>
 <div class="fig"><pre>recordOutcome(taskId, groundTruth)   // dispute resolution · artefact use · forecast close
@@ -817,6 +826,7 @@ calibrationWeight(assessor, category) -&gt; w
     <tr><td>Revenue stack is runnable, not asserted — §10's unit economics as an executable model with pessimistic/median/optimistic scenarios and the §14 kill line priced inside it</td><td><a href="evidence/model.py"><code>model.py</code></a> — every input a named assumption, every output derived; re-run it</td></tr>
     <tr><td>VaaS price anchors — a verdict costs ~$3.30 (Kleros agentic court, full dispute) to ~$12+ (xDAI General Court arbitration fee) or $5–25 for a manual review; Foreguild's $0.25–$10 sits under every alternative</td><td>KIP-80 court parameters · Kleros Devcon 8 agentic-court demo · freelance QA market rates</td></tr>
     <tr><td>This plan's core empirical claim is itself priced — a live Seer market on Base asks whether any futarchy market records nonzero volume before 1 March 2027, resolvable from Seer's own subgraph. Created by this submission; creation script shipped beside this page</td><td><a href="https://app.seer.pm/#/markets/8453/0x867eB2bd5239d2d810F5Cd77954780330dc8e013">market</a> · <a href="https://basescan.org/address/0x867eB2bd5239d2d810F5Cd77954780330dc8e013">contract</a> · <a href="https://basescan.org/tx/0x937aaf55676413b30d84ae3774b2a6dc70082d00ebb074a502cc2afe09527bd4">tx</a> · <a href="evidence/create-market.cjs"><code>create-market.cjs</code></a></td></tr>
+    <tr><td>The receipt format is deployed, not just specified — a specimen <code>VerificationReceipt</code> is signed and its digest anchored on Base; <code>verify()</code> returns true for it and false for anything else</td><td><a href="https://basescan.org/address/0x8fEBbbc356F4AFBB8FA9c43F46Bd2bEdA327e95A">ReceiptAnchor</a> · <a href="https://basescan.org/tx/0x23899e40f9a74db4677bcb0834eca7b3c50ccbbdf1bcee8524260c866a1dc817">anchor tx</a> · <a href="evidence/receipt.json"><code>receipt.json</code></a> · <a href="evidence/receipt-anchor/ReceiptAnchor.sol"><code>ReceiptAnchor.sol</code></a></td></tr>
   </table>
 
   <h3>Where this plan sits in the field</h3>

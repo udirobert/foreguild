@@ -1,0 +1,37 @@
+{
+  "anchor": {
+    "chain": "base",
+    "chain_id": 8453,
+    "contract": "0x8fEBbbc356F4AFBB8FA9c43F46Bd2bEdA327e95A",
+    "function": "anchor(bytes32) / verify(bytes32)"
+  },
+  "deliverable_hash": "0xb0f1a2d7920842cb\u2026",
+  "mode": "judged",
+  "note": "Format demonstration for the Seer FAO plan contest \u2014 proves the issue/sign/anchor/verify path end-to-end. Not a live task verdict.",
+  "panel": [
+    {
+      "assessor_id": "asm_demo_a9f2",
+      "calibration_at_verdict": 0.81
+    },
+    {
+      "assessor_id": "asm_demo_c21d",
+      "calibration_at_verdict": 0.74
+    },
+    {
+      "assessor_id": "asm_demo_77e0",
+      "calibration_at_verdict": 0.69
+    }
+  ],
+  "resolved_at": "2026-11-16T21:30:00Z",
+  "resolved_by": "median",
+  "rubric_hash": "0x50648a6dce8a8a9b\u2026",
+  "score": 87,
+  "specimen": true,
+  "task_id": "FG-SPECIMEN-001",
+  "threshold": 70,
+  "verdict_status": "upheld",
+  "signature": "0x09434c11a05b1fe44da8231cd44ef69b6473751a7052f9a5d038d04f9b04e1fa5aa01d9315c38b9962801096f40b3a0bb0e037dfd97151e62d5917125bf8e5c71b",
+  "signer": "0x218473440011Bd36728e0A1fa5f0b8233e28fa2B",
+  "digest": "0x5ea1b331c09eea8f0fb14f04f9b132821df5f06b8f6b90605d62cdbd9239fee8",
+  "digest_alg": "keccak256(canonical_json_sorted_compact)"
+}
