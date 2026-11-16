@@ -47,7 +47,8 @@
     <li><a href="#s14"><span class="no">14</span> 90 days &amp; kill criteria</a></li>
     <li><a href="#s15"><span class="no">15</span> Risks &amp; limitations</a></li>
     <li><a href="#s16"><span class="no">16</span> Deployed precedent</a></li>
-    <li><a href="#s17"><span class="no">17</span> Evidence</a></li>
+    <li><a href="#s17"><span class="no">17</span> Interface sketch</a></li>
+    <li><a href="#s18"><span class="no">18</span> Evidence</a></li>
   </ol>
 </aside>
 
@@ -111,7 +112,8 @@
   </ol>
   <p class="blocknote">Eighty-four claims are on this bounty; two of them already sell
     verification-as-product. This is the only plan that prices <i>how a verdict stays honest</i> —
-    the market re-checks the panel, not just the work.</p>
+    the market re-checks the panel, not just the work — and the only one that opened a live market
+    on its own central claim (§18).</p>
 </div>
 
 <section class="blk" id="s01">
@@ -451,11 +453,17 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
   <p>Seer ships a futarchy market type — a governance question priced in two numéraires — and a
     16 November pull of the type's markets found <b>all 398 futarchy markets unpriced: zero
     liquidity, zero traded volume, zero non-null odds</b>; 53 have already resolved without ever
-    finding a price (measured, not asserted — §17). The strongest counterevidence we can find inside
-    the same pull: four real DAO-governance proposal markets — Kleros DAO's KIP-76/88/90 and
-    GnosisDAO's GIP-151 — and even those resolved with the endpoint's liquidity, volume and odds
-    fields at zero. No futarchy market on Seer has ever been priced. Foreguild gives it its first
-    real workload, on two kinds of pair.</p>
+    finding a price (measured, not asserted — §18). Read that correctly and it is not an indictment
+    of the mechanism — it is a measurement of the substrate. Every one of those markets asked a
+    governance question: a proposal that resolves by process, with no natural counterparties, no
+    recurring flow, and no one whose money depends on the answer next week. Futarchy markets don't
+    die from bad mechanics; they die from question starvation — nobody is paid to be right about
+    them. Foreguild's task flow is the missing input: continuous, priced, time-bound questions with
+    built-in counterparties (the poster hedges, the worker holds), resolving weekly whether the
+    org likes it or not. And because a claim like that deserves a price, not a promise, this
+    submission opened a live Seer market on the platform's own data — linked in §18 — betting that
+    futarchy gets its first nonzero volume before March. The plan publishes the market that would
+    prove it wrong.</p>
 
   <h3>Parameter pairs — the conservative layer</h3>
   <p>Anything that moves the revenue metric and nothing else is a Seer futarchy pair on
@@ -606,6 +614,11 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
     work that passed, failed, was contested, was overturned — across every category Foreguild serves.
     "What agent output holds up" is the scarcest dataset in agent commerce, and it accrues to whoever
     runs the verdicts.</p>
+  <p>Every figure on this page is reproducible, not asserted:
+    <a href="evidence/model.py"><code>model.py</code></a> encodes §10's unit economics as an executable
+    model — pessimistic, median and optimistic scenarios, the §14 kill line priced inside it, and the
+    VaaS price anchors that justify the $0.25–$10 receipt. Change an assumption, re-run, and the kill
+    criteria tell you what the plan is worth.</p>
 </section>
 
 <section class="blk" id="s11">
@@ -718,11 +731,78 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
 </section>
 
 <section class="blk" id="s17">
-  <h2><span class="no">17</span> Evidence behind the numbers</h2>
+  <h2><span class="no">17</span> Interface sketch — concrete enough to price</h2>
+  <p>The strongest plan in this field is concrete down to factory call signatures. This is ours:
+    the surface a builder would implement, with the Seer-native calls spelled out against the
+    deployed factories (<code>MarketFactory</code> <code>0x83183DA8…</code>, <code>FutarchyFactory</code>
+    <code>0xe789e4A2…</code> on Gnosis). Signatures are illustrative TypeScript; every economic
+    parameter is §10's.</p>
+
+  <h3>Posting &amp; rubric — the task record</h3>
+<div class="fig"><pre>postTask({
+  category, description, deliverableSpec,
+  rubric: { criteria: [{ id, weight, check }] },   // 3–7, poster-signed, hashed into the record
+  mode: "machine" | "judged",
+  valueUsdc, deadlineUnix
+}) -&gt; taskId            // machine tasks also commit acceptanceTestHash up front</pre></div>
+
+  <h3>The judgment panel — §05's mechanism as calls</h3>
+<div class="fig"><pre>drawPanel(taskId) -&gt; [a, b, c]                    // calibration-weighted sortition, blind
+commitVerdict(taskId, panelist, { scores, justificationHash })   // 24h window
+revealVerdict(taskId, panelist)                    // after all three commit;
+                                                   // non-reveal = bond forfeit + redraw
+medianVerdict(taskId) -&gt; { score, threshold, verdict: "upheld" | "failed" }</pre></div>
+
+  <h3>The verdict market — §05.4 is a real Seer market</h3>
+<div class="fig"><pre>MarketFactory.createCategoricalMarket({           // Gnosis, sDAI collateral
+  marketName: "Will the panel verdict on task &lt;id&gt; be upheld?",
+  outcomes: ["Yes", "No"],
+  category: "crypto", lang: "en_US",
+  minBond: &lt;sDAI&gt;, openingTime: &lt;unix&gt;,
+  tokenNames: ["UPHELD", "OVERTURNED"]
+}) -&gt; marketAddress                                // judged tasks ≥ 500 sDAI only</pre></div>
+
+  <h3>The receipt — §06's product as an object</h3>
+<div class="fig"><pre>VerificationReceipt {
+  task_id, rubric_hash, deliverable_hash,
+  mode, score, threshold,
+  panel: [{ assessor_id, calibration_at_verdict }],
+  resolved_by,                       // median | test | market | kleros
+  verdict_status, resolved_at
+}   // secp256k1-signed by the receipt key, anchored on Gnosis,
+    // fetchable by anything that can read a chain or call REST/MCP
+
+issueReceipt(taskId) -&gt; receiptHash
+verifyReceipt(receipt) -&gt; bool     // the entire VaaS product is this function, sold</pre></div>
+
+  <h3>Calibration — the record that re-prices judges</h3>
+<div class="fig"><pre>recordOutcome(taskId, groundTruth)   // dispute resolution · artefact use · forecast close
+calibrationWeight(assessor, category) -&gt; w
+// log score on committed-vs-resolved, per category — drives sortition,
+// fee share, and demotion (§05.5)</pre></div>
+
+  <h3>Governance — §08's pairs are real Seer calls</h3>
+<div class="fig"><pre>FutarchyFactory.createProposal({                   // employment pair, quarterly
+  marketName: "Will Foreguild 90-day net fee revenue be higher if &lt;agent&gt;
+               runs &lt;candidate&gt; than &lt;incumbent&gt;?",
+  collateralToken1: sDAI, collateralToken2: &lt;numéraire&gt;,
+  category, lang, minBond, openingTime
+}) -&gt; proposalAddress    // executes only on sustained TWAP gap &gt; 2% + participation floor</pre></div>
+
+  <p class="blocknote">And the minimum viable mechanism, stated so nobody has to guess: the plan
+    degrades gracefully. Machine-check + Reality.eth/Kleros alone is a working job board at 11%
+    blended; every layer above — panels, verdict markets, calibration, employment pairs — is an
+    upgrade that switches on when its fee line justifies it. Complexity here is optional, not
+    load-bearing.</p>
+</section>
+
+<section class="blk" id="s18">
+  <h2><span class="no">18</span> Evidence behind the numbers</h2>
   <p class="blocknote">Scope, stated plainly: what is <b>measured</b> below is the field and the
-    platform — the futarchy depth and the claim census. What is <b>designed</b> is Foreguild itself;
-    its mechanisms are design until they run, and the closest thing to running them is §16's linked
-    precedents. We would rather a judge hold us to that line than discover it.</p>
+    platform — the futarchy depth, the claim census, and the live market this submission opened.
+    What is <b>designed</b> is Foreguild itself; its mechanisms are design until they run, and the
+    closest things to running them are §16's linked precedents, §17's interface sketch, and the
+    runnable revenue model. We would rather a judge hold us to that line than discover it.</p>
   <table class="tbl">
     <tr><th>Claim in this plan</th><th>Source</th></tr>
     <tr><td>Fiverr blends ≈$29 on a $100 order (20% seller + 5.5% + $3.50 under $200)</td><td>Fiverr Help Center / pricing guide</td></tr>
@@ -734,7 +814,22 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
     <tr><td>Reality.eth timeout 3.5 days on Seer's Gnosis factory; Kleros arbitration behind it</td><td>Seer deploy script (<code>questionTimeout()=302400</code>) · Seer docs</td></tr>
     <tr><td>Seer market creation ≈1.9M gas on Gnosis — effectively free</td><td>Recent factory transactions · Seer MarketFactory</td></tr>
     <tr><td>poidh takes 2.5% on payout; open-bounty feed + MCP server exist; contests on poidh have drawn 66–135 claims</td><td>PoidhV3 <code>FEE_BPS=250</code> · bounties #38/#39/#1531 on-chain data</td></tr>
+    <tr><td>Revenue stack is runnable, not asserted — §10's unit economics as an executable model with pessimistic/median/optimistic scenarios and the §14 kill line priced inside it</td><td><a href="evidence/model.py"><code>model.py</code></a> — every input a named assumption, every output derived; re-run it</td></tr>
+    <tr><td>VaaS price anchors — a verdict costs ~$3.30 (Kleros agentic court, full dispute) to ~$12+ (xDAI General Court arbitration fee) or $5–25 for a manual review; Foreguild's $0.25–$10 sits under every alternative</td><td>KIP-80 court parameters · Kleros Devcon 8 agentic-court demo · freelance QA market rates</td></tr>
+    <tr><td>This plan's core empirical claim is itself priced — a live Seer market on Base asks whether any futarchy market records nonzero volume before 1 March 2027, resolvable from Seer's own subgraph. Created by this submission; creation script shipped beside this page</td><td><a href="https://app.seer.pm/#/markets/8453/0x867eB2bd5239d2d810F5Cd77954780330dc8e013">market</a> · <a href="https://basescan.org/address/0x867eB2bd5239d2d810F5Cd77954780330dc8e013">contract</a> · <a href="https://basescan.org/tx/0x937aaf55676413b30d84ae3774b2a6dc70082d00ebb074a502cc2afe09527bd4">tx</a> · <a href="evidence/create-market.cjs"><code>create-market.cjs</code></a></td></tr>
   </table>
+
+  <h3>Where this plan sits in the field</h3>
+  <p>The serious entries cluster into three shapes. Naming them by mechanism, not by claim number:</p>
+  <table class="tbl">
+    <tr><th>Shape</th><th>Assessment</th><th>When the assessor is wrong</th><th>Is the verdict itself priced?</th></tr>
+    <tr><td>Take-rate job board (the majority)</td><td>Acceptance test or nothing</td><td>Dispute or refund</td><td class="num">no</td></tr>
+    <tr><td>Receipt-for-work plans (a minority)</td><td>Verdict minted as a portable object</td><td>Depends on the issuer's honesty</td><td class="num">no</td></tr>
+    <tr class="hl"><td><b>This plan</b></td><td>Bonded panel + machine layer</td><td>Market re-checks the panel; oracle → Kleros behind that; every judge re-scored</td><td class="num"><b>yes — §05.4</b></td></tr>
+  </table>
+  <p>The third column is the differentiator: in the other shapes, a wrong verdict is a wrong
+    verdict. Here it is a priced event — someone can bet against it, and the panel's own record
+    pays for being right.</p>
 </section>
 
 <footer class="colophon">
