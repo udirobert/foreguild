@@ -1,24 +1,147 @@
 {
-  "measured_at": "2026-11-16T13:29:10Z",
-  "method": {
-    "futarchy": "POST https://app.seer.pm/.netlify/functions/markets-search {\"limit\":500,\"page\":1,\"type\":\"Futarchy\"} \u2014 all 398 rows inspected",
-    "claims": "POST https://poidh.xyz/api/mcp tools/call get_bounty {\"id\":1531,\"chain\":\"base\"} \u2014 all 84 claim records inspected"
-  },
-  "seer_futarchy": {
-    "markets_total": 398,
-    "has_liquidity_flag_true": 0,
-    "liquidityUSD_gt0": 0,
-    "volumeUSD_gt0": 0,
-    "any_outcome_odds_gt0": 0,
-    "payout_reported": 53,
-    "liquidityUSD_total": 0.0
-  },
-  "poidh_bounty_1531": {
-    "claims_total": 84,
-    "claims_with_hosted_plan_url": 79,
-    "accepted": 0,
-    "bounty_status": "In progress",
-    "accepting_claims": true,
-    "note": "claim count is a superset of serious plans; ~30 also visible as public GitHub repos"
+ "measured_at": "2026-11-16T13:29:10Z",
+ "audited_at": "2026-11-16T15:07:48Z",
+ "method": {
+  "futarchy": "POST https://app.seer.pm/.netlify/functions/markets-search {\"limit\":500,\"page\":1,\"type\":\"Futarchy\"} \u2014 all 398 rows inspected; counts below are computed from the raw rows, not hand-entered",
+  "fields": "zeros are read from the endpoint's own per-market fields: liquidityUSD, hasLiquidity, volumeUSD, odds, poolBalance, maxLiquidity",
+  "claims": "POST https://poidh.xyz/api/mcp tools/call get_bounty {\"id\":1531,\"chain\":\"base\"} \u2014 all 84 claim records inspected",
+  "raw_files": "full untruncated pull shipped as evidence/futarchy_raw.json (398 rows, ~1.0 MB); poidh claim pull kept in the entry repo"
+ },
+ "seer_futarchy": {
+  "chainId": 100,
+  "markets_total": 398,
+  "liquidityUSD_gt0": 0,
+  "hasLiquidity_true": 0,
+  "volumeUSD_gt0": 0,
+  "volumeNotionalUSD_gt0": 0,
+  "any_outcome_odds_nonnull": 0,
+  "poolBalance_nonnull": 0,
+  "payout_reported": 53,
+  "openingTs_zero": 97,
+  "test_named": 161,
+  "openInterestUSD": {
+   "nonzero_rows": 217,
+   "le_1000_rows": 213,
+   "le_1000_median": 3.033918128648e-06,
+   "le_1000_max": 795.545507604703,
+   "gt_1000_rows": [
+    {
+     "openInterestUSD": 4668304.532694841,
+     "marketName": "Will KIP-90 (Cooperative Spending Disclosure) be approved by Kleros DA"
+    },
+    {
+     "openInterestUSD": 4664532.219452328,
+     "marketName": "Will KIP-88 (DAO Guidance to the Cooperative) be approved ('Yes') or r"
+    },
+    {
+     "openInterestUSD": 51813.63210934094,
+     "marketName": "Will GIP-151 (one-time pro-rata treasury redemption) be passed by Gnos"
+    },
+    {
+     "openInterestUSD": 4074.3564785719846,
+     "marketName": "Will KIP-76 \u2013 Futarchy-Based Governance Rule for PNK Minting be approv"
+    }
+   ],
+   "note": "supply-derived figure on markets with no trades; the four large rows are real DAO-governance proposals (Kleros DAO KIP-76/88/90, GnosisDAO GIP-151) that resolved with liquidityUSD=0, volumeUSD=0, null odds \u2014 even the DAOs that proposed futarchy rules never got a market that priced them"
   }
+ },
+ "example_row": {
+  "id": "0x0cae5e6f520e52e3d6a93c856bb6dbf7781f2e31",
+  "type": "Futarchy",
+  "creator": "0x693e3fb46bb36ee43c702fe94f9463df0691b43d",
+  "factory": "0xa6cb18fcdc17a2b44e5cad2d80a6d5942d30a345",
+  "outcomes": [
+   "Yes-PNK",
+   "No-PNK",
+   "Yes-sDAI",
+   "No-sDAI"
+  ],
+  "openingTs": 1780660800,
+  "questions": [
+   {
+    "id": "0x75f6aebc6f12cef5477699c5d0fe44bf17db30dcd4d2570e1503ad9bc5aba478",
+    "bond": "1000000000000000000",
+    "index": 0,
+    "timeout": 302400,
+    "min_bond": "1000000000000000000",
+    "arbitrator": "0x68154ea682f95bf582b80dd6453fa401737491dc",
+    "opening_ts": 1780660800,
+    "best_answer": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "finalize_ts": 1781014445,
+    "is_pending_arbitration": false,
+    "base_question": "0x75f6aebc6f12cef5477699c5d0fe44bf17db30dcd4d2570e1503ad9bc5aba478"
+   }
+  ],
+  "finalizeTs": 1781014445,
+  "hasAnswers": true,
+  "lowerBound": "0",
+  "marketName": "Will KIP-88 (DAO Guidance to the Cooperative) be approved ('Yes') or rejected ('No') by Kleros Governance? If the proposal is not approved by the end of the Snapshot vote, results as ('No').",
+  "questionId": "0x75f6aebc6f12cef5477699c5d0fe44bf17db30dcd4d2570e1503ad9bc5aba478",
+  "templateId": "2",
+  "upperBound": "0",
+  "conditionId": "0x63452e1a154feb70d2ab6ffb6d1734c8f04a127e67d0036b45e2916a8efab98e",
+  "parentMarket": {
+   "id": "0x0000000000000000000000000000000000000000",
+   "conditionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+   "payoutReported": false,
+   "payoutNumerators": []
+  },
+  "parentOutcome": "0",
+  "wrappedTokens": [
+   "0x45da0089e53f41998449edc7a62b74afa7db76db",
+   "0xf29b93318a819fe99677076b8f3f4038f0bdb1b4",
+   "0x43daa59fa6f6c32bedfbbdfb00daba8b856257a3",
+   "0x3b3c35025fd20fb71acd8da9d919a79fd35daf4c"
+  ],
+  "blockTimestamp": 1780060930,
+  "outcomesSupply": "83175124716041931029885",
+  "payoutReported": true,
+  "collateralToken": "0x0000000000000000000000000000000000000000",
+  "transactionHash": "0xfacf7a719007a3562f15a83c6bd5bb28cb381175d47f2abafb0dae608d9a7c88",
+  "collateralToken1": "0x37b60f4e9a31a64ccc0024dce7d0fd07eaa0f7b3",
+  "collateralToken2": "0xaf204776c7245bf4147c2612bf6e5972ee483701",
+  "encodedQuestions": [
+   "Will KIP-88 (DAO Guidance to the Cooperative) be approved ('Yes') or rejected ('No') by Kleros Governance? If the proposal is not approved by the end of the Snapshot vote, results as ('No').\u241f\"Yes\",\"No\"\u241fgovernance\u241fen"
+  ],
+  "payoutNumerators": [
+   "1",
+   "0"
+  ],
+  "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "questionsInArbitration": "0",
+  "chainId": 100,
+  "verification": {
+   "status": "not_verified"
+  },
+  "liquidityUSD": 0,
+  "maxLiquidity": 0,
+  "incentive": 0,
+  "hasLiquidity": false,
+  "odds": [
+   null,
+   null,
+   null,
+   null
+  ],
+  "categories": [
+   "misc"
+  ],
+  "poolBalance": [
+   null,
+   null
+  ],
+  "url": "will-kip-88-dao-guidance-to-the-cooperative-be-approved-yes-or-rejected-no-by-kl",
+  "openInterestUSD": 4664532.219452328,
+  "volumeUSD": 0,
+  "volumeNotionalUSD": 0,
+  "_note": "one full row, verbatim from the raw pull, as field-level proof of structure; the other 397 are identical in shape"
+ },
+ "poidh_bounty_1531": {
+  "claims_total": 84,
+  "claims_with_hosted_plan_url": 79,
+  "accepted": 0,
+  "bounty_status": "In progress",
+  "accepting_claims": true,
+  "note": "claim count is a superset of serious plans; ~30 also visible as public GitHub repos"
+ }
 }

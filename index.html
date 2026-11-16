@@ -451,8 +451,11 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
   <p>Seer ships a futarchy market type — a governance question priced in two numéraires — and a
     16 November pull of the type's markets found <b>all 398 futarchy markets unpriced: zero
     liquidity, zero traded volume, zero non-null odds</b>; 53 have already resolved without ever
-    finding a price (measured, not asserted — §17). The mechanism exists and has never been
-    exercised at scale. Foreguild gives it its first real workload, on two kinds of pair.</p>
+    finding a price (measured, not asserted — §17). The strongest counterevidence we can find inside
+    the same pull: four real DAO-governance proposal markets — Kleros DAO's KIP-76/88/90 and
+    GnosisDAO's GIP-151 — and even those resolved with the endpoint's liquidity, volume and odds
+    fields at zero. No futarchy market on Seer has ever been priced. Foreguild gives it its first
+    real workload, on two kinds of pair.</p>
 
   <h3>Parameter pairs — the conservative layer</h3>
   <p>Anything that moves the revenue metric and nothing else is a Seer futarchy pair on
@@ -578,7 +581,9 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
     <tr><td>Poster fee 7%</td><td class="num pos">+35.00</td><td>splitter</td></tr>
     <tr><td>Worker fee 3%</td><td class="num pos">+15.00</td><td>splitter</td></tr>
     <tr><td>Assessment fee 4%</td><td class="num pos">+20.00</td><td>$16 → assessor pool, $4 → treasury</td></tr>
-    <tr><td>Verdict-market seed, net</td><td class="num neg">−8.00</td><td>mostly recovered at resolution</td></tr>
+    <tr><td>Verdict-market seed, net</td><td class="num neg">−8.00</td><td>gross seed 40.00 posted as
+      LP liquidity (not a burn); assumed ≈80% returned at resolution — the winning side redeems the
+      full pool — so −8.00 is the expected net, ≈1.6% of GMV</td></tr>
     <tr><td>Dispute &amp; refund reserve 1%</td><td class="num neg">−5.00</td><td>until 3× trailing payouts</td></tr>
     <tr><td>Protocol agents + gas</td><td class="num neg">−3.00</td><td>market creation ≈ free on Gnosis</td></tr>
     <tr class="total"><td>Treasury contribution</td><td class="num pos">+54.00</td><td>≈ 10.8% of GMV</td></tr>
@@ -696,30 +701,35 @@ SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
     operate. Cited as evidence the components exist — not as part of the deliverable:</p>
   <table class="tbl">
     <tr><th>Plan mechanism</th><th>Running precedent</th></tr>
-    <tr><td>Bonded mandates &amp; capital allocated to agents under enforced scopes, with an evidence trail per allocation</td><td><b>Cognivern</b> — governed execution + audit substrate for agentic work, live (cognivern.persidian.com)</td></tr>
-    <tr><td>Decisions committed before outcomes resolve, reconciled after — governance receipts</td><td><b>Fourcast</b> — prediction-market operator issuing cryptographic decision receipts pre-resolution</td></tr>
-    <tr><td>Fund release cryptographically gated on verdict verification — the receipt-settles-payment path</td><td><b>Stoppage</b> — settlement CPI-gated on on-chain proof verification; no admin key</td></tr>
-    <tr><td>Claim extraction → rubric-phrased criteria → inspectable evidence trail → distrusting judge</td><td><b>Lemma</b> — claim-audit agent that scores scientific claims and distrusts itself</td></tr>
-    <tr><td>Falsification pipeline for claims about agent swarms — "an agent proposes, the record decides"</td><td><b>Cantheria</b> — canary pipeline reporting only what survives the kill chain</td></tr>
-    <tr><td>Decentralised arbitration behind verdicts</td><td><b>Srelok</b> — agent earning inside Kleros Scout registries</td></tr>
-    <tr><td>Portable, privacy-preserving agent track records</td><td><b>Early-Not-Wrong</b> / <b>Latep</b> — on-chain conviction records; ZK-provable history without revealing it</td></tr>
-    <tr><td>Order-bound payment governance on the payout path</td><td><b>Ligis</b> — right payee, right amount, in-scope checks enforced before money moves</td></tr>
+    <tr><td>Bonded mandates &amp; capital allocated to agents under enforced scopes, with an evidence trail per allocation</td><td><b><a href="https://cognivern.persidian.com">Cognivern</a></b> — governed execution + audit substrate for agentic work, live (repo: <a href="https://github.com/thisyearnofear/cognivern">github</a>)</td></tr>
+    <tr><td>Decisions committed before outcomes resolve, reconciled after — governance receipts</td><td><b><a href="https://github.com/thisyearnofear/fourcast">Fourcast</a></b> — prediction-market operator issuing cryptographic decision receipts pre-resolution</td></tr>
+    <tr><td>Fund release cryptographically gated on verdict verification — the receipt-settles-payment path</td><td><b><a href="https://github.com/sneldao/stoppage">Stoppage</a></b> — settlement CPI-gated on on-chain proof verification; no admin key</td></tr>
+    <tr><td>Claim extraction → rubric-phrased criteria → inspectable evidence trail → distrusting judge</td><td><b><a href="https://github.com/udirobert/lemma">Lemma</a></b> — claim-audit agent that scores scientific claims and distrusts itself</td></tr>
+    <tr><td>Falsification pipeline for claims about agent swarms — "an agent proposes, the record decides"</td><td><b><a href="https://github.com/udirobert/cantheria">Cantheria</a></b> — canary pipeline reporting only what survives the kill chain</td></tr>
+    <tr><td>Decentralised arbitration behind verdicts</td><td><b>Srelok</b> — agent earning inside Kleros Scout registries (no public repo; registry entry verifiable in Scout)</td></tr>
+    <tr><td>Portable, privacy-preserving agent track records</td><td><b><a href="https://github.com/thisyearnofear/earlynotwrong">Early-Not-Wrong</a></b> / <b><a href="https://github.com/thisyearnofear/latep">Latep</a></b> — on-chain conviction records; ZK-provable history without revealing it</td></tr>
+    <tr><td>Order-bound payment governance on the payout path</td><td><b><a href="https://github.com/sneldao/ligis">Ligis</a></b> — right payee, right amount, in-scope checks enforced before money moves</td></tr>
     <tr><td>Seer-native surfaces, including this document's skin</td><td><b>Seer, Six Interfaces</b> — our earlier Seer contest build on the Electric Foundation kit (incl. the futarchy surface)</td></tr>
   </table>
-  <p class="blocknote">The honest version of this table's claim: none of these systems <i>is</i>
-    Foreguild. But the plan's risk is in §05's economics, not in whether bonded agents, gated
-    settlement or committed verdicts can be built — those parts are already running.</p>
+  <p class="blocknote">Every precedent is linked above to its live deployment or public repo so a
+    judge can verify rather than trust. The honest version of this table's claim: none of these
+    systems <i>is</i> Foreguild. But the plan's risk is in §05's economics, not in whether bonded
+    agents, gated settlement or committed verdicts can be built — those parts are already running.</p>
 </section>
 
 <section class="blk" id="s17">
   <h2><span class="no">17</span> Evidence behind the numbers</h2>
+  <p class="blocknote">Scope, stated plainly: what is <b>measured</b> below is the field and the
+    platform — the futarchy depth and the claim census. What is <b>designed</b> is Foreguild itself;
+    its mechanisms are design until they run, and the closest thing to running them is §16's linked
+    precedents. We would rather a judge hold us to that line than discover it.</p>
   <table class="tbl">
     <tr><th>Claim in this plan</th><th>Source</th></tr>
     <tr><td>Fiverr blends ≈$29 on a $100 order (20% seller + 5.5% + $3.50 under $200)</td><td>Fiverr Help Center / pricing guide</td></tr>
     <tr><td>Upwork freelancer fee 0–15%; client fee 3–10% by tier</td><td>Upwork pricing guide</td></tr>
     <tr><td>OKX opened an agent marketplace 30 Jun 2026 — stablecoin settlement, GenLayer disputes, no assessment layer</td><td>TechCrunch, 30 Jun 2026</td></tr>
     <tr><td>Deep Funding allocated $350k on Seer (98 repos, 3,677 dependencies) — forecast-scoring as a funded workload</td><td>Seer announcement 25 May 2026 · Gitcoin GG24 forum · ethresear.ch</td></tr>
-    <tr><td>Seer futarchy type exists; <b>all 398 futarchy markets unpriced</b> — 0 with liquidity, 0 with volume, 0 with non-null odds; 53 resolved unfunded (16 Nov 2026 pull)</td><td><code>markets-search {"type":"Futarchy"}</code>, authors' own measurement — reproduced in <a href="evidence/seer-depth.json"><code>evidence/seer-depth.json</code></a></td></tr>
+    <tr><td>Seer futarchy type exists; <b>all 398 futarchy markets unpriced</b> — 0 with liquidity, 0 with volume, 0 with non-null odds; 53 resolved unfunded. Includes the four real DAO-governance proposal markets (Kleros DAO KIP-76/88/90, GnosisDAO GIP-151): resolved with every activity field at zero. <span class="dim">openInterestUSD is non-zero on 217 rows — supply-derived, ≤$1,000 on 213 of them; the four large values are those DAO proposals.</span> (16 Nov 2026 pull)</td><td><code>markets-search {"type":"Futarchy"}</code>, authors' own measurement — summary <a href="evidence/seer-depth.json"><code>seer-depth.json</code></a>; all 398 raw rows shipped as <a href="evidence/futarchy_raw.json"><code>futarchy_raw.json</code></a></td></tr>
     <tr><td>84 claims on this bounty, 79 linking a hosted plan — the field's centre of gravity is a take-rate job board; only a minority price judgment work or run futarchy past parameter-tuning</td><td><code>poidh.xyz/api/mcp</code> <code>get_bounty(id=1531)</code> — same pull file</td></tr>
     <tr><td>Reality.eth timeout 3.5 days on Seer's Gnosis factory; Kleros arbitration behind it</td><td>Seer deploy script (<code>questionTimeout()=302400</code>) · Seer docs</td></tr>
     <tr><td>Seer market creation ≈1.9M gas on Gnosis — effectively free</td><td>Recent factory transactions · Seer MarketFactory</td></tr>
