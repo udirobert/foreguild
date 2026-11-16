@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every Task a Receipt — a revenue-first operating plan for Foreguild · Seer FAO contest</title>
+<meta name="description" content="An operating plan for Foreguild, a proposed AI job board run as a Futarchy Autonomous Organization. The job board is the storefront; the product is a priced, portable, on-chain verdict on whether the work was good.">
+<script>
+// Theme before paint — same contract as the kit: an attribute, not a flash.
+(function(){try{var t=localStorage.getItem('fg-theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';}catch(e){}})();
+</script>
+<link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="plan.css">
+</head>
+<body>
+
+<nav class="topbar">
+  <span class="brand"><b>▲</b> foreguild · operating plan</span>
+  <span class="dot">·</span>
+  <span>Seer FAO contest · poidh bounty <a href="https://poidh.xyz/base/bounty/1531">#1531</a></span>
+  <span class="spacer"></span>
+  <button type="button" class="act" id="theme-btn">◐ theme</button>
+  <span class="dot">·</span>
+  <button type="button" class="act" onclick="print()">⎙ print / pdf</button>
+</nav>
+
+<div class="page">
+
+<aside class="rail">
+  <p class="rail-h">Sections</p>
+  <ol id="rail-list">
+    <li><a href="#s01"><span class="no">01</span> The wedge</a></li>
+    <li><a href="#s02"><span class="no">02</span> Two kinds of work</a></li>
+    <li><a href="#s03"><span class="no">03</span> The loop</a></li>
+    <li><a href="#s04"><span class="no">04</span> Machine assessment</a></li>
+    <li><a href="#s05"><span class="no">05</span> The judgment layer</a></li>
+    <li><a href="#s06"><span class="no">06</span> The receipt</a></li>
+    <li><a href="#s07"><span class="no">07</span> The swarm</a></li>
+    <li><a href="#s08"><span class="no">08</span> Futarchy as the OS</a></li>
+    <li><a href="#s09"><span class="no">09</span> A decision, worked</a></li>
+    <li><a href="#s10"><span class="no">10</span> Revenue</a></li>
+    <li><a href="#s11"><span class="no">11</span> Day-one demand</a></li>
+    <li><a href="#s12"><span class="no">12</span> Futarchy failure modes</a></li>
+    <li><a href="#s13"><span class="no">13</span> Humans</a></li>
+    <li><a href="#s14"><span class="no">14</span> 90 days &amp; kill criteria</a></li>
+    <li><a href="#s15"><span class="no">15</span> Risks &amp; limitations</a></li>
+    <li><a href="#s16"><span class="no">16</span> Deployed precedent</a></li>
+    <li><a href="#s17"><span class="no">17</span> Evidence</a></li>
+  </ol>
+</aside>
+
+<main>
+
+<header class="masthead">
+  <p class="eyebrow">Foreguild · FAO operating plan · optimised for revenue</p>
+  <h1>Every Task a Receipt</h1>
+  <p class="lede">A job board is a storefront. The business is the stamp on the work: a priced, portable,
+    on-chain verdict that the work was good — including the work no machine test can check. Foreguild
+    mints that verdict. The board is where it gets minted.</p>
+  <ul class="chips">
+    <li><b>Gnosis Chain</b> · sDAI escrow</li>
+    <li>Governance: <b>Seer futarchy</b> — parameters and agent employment</li>
+    <li>Assessment: <b>machine tests + bonded judgment panels</b></li>
+    <li>Disputes: <b>Reality.eth → Kleros</b></li>
+    <li>Metric: <b>90-day net fee revenue</b></li>
+  </ul>
+</header>
+
+<div class="summary">
+  <h2>One-page summary</h2>
+  <ol>
+    <li><b>Product.</b> Foreguild is a job board where humans and agents post tasks, agent workers
+      complete them, and payment clears in sDAI on Gnosis Chain. Its product is not labour — it is
+      <b>verified work</b>: every accepted task emits a signed, on-chain <b>Verification Receipt</b>
+      recording what was checked, by whom, and how it resolved.</li>
+    <li><b>The partition the market misses.</b> Every plan in this space assumes work is
+      machine-checkable — pass an acceptance test, release escrow. That covers a minority of valuable
+      agent tasks: no test exists for "is this research good" or "is this market question well-formed."
+      Foreguild prices that majority with a second assessment layer — and the assumption that filters
+      those tasks out is our competitor's load-bearing wall, not ours.</li>
+    <li><b>The judgment layer.</b> For work a test can't check, three bonded assessor agents are drawn
+      by calibration-weighted sortition, score a rubric under commit-reveal, and the median verdict
+      pays on a 48-hour fast path. Assessor verdicts are committed before outcomes are known and
+      re-scored against whatever ground truth later arrives, so every judge carries a public
+      calibration record.
+      Judges can't be trusted; ours are continuously re-priced.</li>
+    <li><b>The receipt is the second product.</b> The same verdict other platforms need — OKX runs an
+      agent marketplace with disputes but no assessment layer — is sold as Verification-as-a-Service
+      through an API, at $0.25–$10 per receipt depending on depth. The board feeds the verifier; the
+      verifier sells to everyone else.</li>
+    <li><b>Futarchy is the operating system, not the voting booth.</b> Two kinds of Seer futarchy pairs
+      run Foreguild: parameter pairs (fees, thresholds, treasury spend) and <b>employment pairs</b> —
+      markets that hire and fire the protocol's own agents by pricing whether a candidate model or
+      policy raises 90-day net fee revenue. Every governance decision is committed pre-resolution as
+      a receipt, so the organisation publishes a graded track record of its own choices.</li>
+    <li><b>Revenue.</b> Launch take 10% blended (7 poster / 3 worker, inside a 5–15% futarchy band),
+      plus a 4% assessment fee on judged work and 1% on machine-checked work. Six more lines switch
+      on by month 3 — VaaS receipts, the calibration feed, contest hosting, LP share, certification,
+      grant review — against Fiverr's ~29% blended and a bare bounty board's 2.5%.</li>
+    <li><b>Demand on day one.</b> Four queues that already pay in crypto — Seer's own market-ops
+      backlog, contest hosting, poidh bounty routing, grant review — plus the supply-side flywheel
+      incumbents miss: agents come to Foreguild <i>to earn a track record</i>, and certified supply
+      is what buyers buy.</li>
+    <li><b>Humans.</b> A 3-of-5 Guardian that can pause (expiring in 7 days) and veto, never spend.
+      Reality.eth and Kleros are the human backstop behind every verdict.</li>
+    <li><b>Kill criteria are published with the metric.</b> If judged work is under 35% of GMV at day
+      90, the verdict layer didn't land and the plan pivots to selling receipts to other boards —
+      the kill path is itself a revenue path.</li>
+  </ol>
+</div>
+
+<section class="blk" id="s01">
+  <h2><span class="no">01</span> What Foreguild sells that a bounty board doesn't</h2>
+  <p>Three things are true in late 2026: agent-to-agent commerce is being built by exchanges — OKX
+    opened its agent marketplace in June with stablecoin settlement and GenLayer for disputes —
+    freelance platforms take 10–29% for matching and trust, and nobody has priced the thing that makes
+    AI work hard to buy: <b>you can't tell if the work was good until after you've paid for it, and for
+    most valuable work you can't tell at all.</b></p>
+  <table class="tbl">
+    <tr><th>Who</th><th>Trust mechanism</th><th>The gap</th></tr>
+    <tr>
+      <td><b>Upwork / Fiverr</b></td>
+      <td>Reviews, support desk</td>
+      <td>Slow, gamed, human-only supply. Nothing an agent can read or a contract can settle against.</td>
+    </tr>
+    <tr>
+      <td><b>Exchange agent markets</b></td>
+      <td>Brand + dispute court</td>
+      <td>OKX-style markets settle payment and arbitrate fights, but a dispute is not an assessment:
+        it tells you who lost, not whether the work was good.</td>
+    </tr>
+    <tr>
+      <td><b>Bounty boards (poidh)</b></td>
+      <td>Issuer's word</td>
+      <td>2.5% fee buys an escrow, not a verdict. Assessment is left to whoever posted.</td>
+    </tr>
+    <tr class="hl">
+      <td><b>Foreguild</b></td>
+      <td><b>Priced, portable verdicts</b></td>
+      <td>Every task emits a receipt a machine can check and a contract can settle against —
+        machine-verified where a test exists, panel-judged everywhere else.</td>
+    </tr>
+  </table>
+  <p>Foreguild's customer is anyone paying for agent work in crypto: DAOs and protocols running
+    market ops, contests and grants; agent operators buying sub-tasks; crypto-native businesses on
+    Gnosis, Ethereum or Base. The unit of sale is a <b>verified outcome</b>, and the margin comes from
+    being the cheapest place to buy verification — because verification here is produced by agents and
+    markets, not a review department.</p>
+</section>
+
+<section class="blk" id="s02">
+  <h2><span class="no">02</span> Two kinds of work</h2>
+  <p>Split the task space honestly and the plan almost writes itself:</p>
+  <table class="tbl">
+    <tr><th></th><th>Verifiable work</th><th>Judgment work</th></tr>
+    <tr>
+      <td><b>What it is</b></td>
+      <td>A test exists and runs deterministically: compile, pass/fail, oracle data, on-chain state.</td>
+      <td>No test exists: research, writing, market questions, audits, design, triage, most ops.</td>
+    </tr>
+    <tr>
+      <td><b>Share of valuable agent work</b></td>
+      <td>Minority — the easy tail.</td>
+      <td><b>The majority — and the margin.</b></td>
+    </tr>
+    <tr>
+      <td><b>Who can serve it today</b></td>
+      <td>Every escrow board.</td>
+      <td>Nobody, priced. Humans do it by hand or not at all.</td>
+    </tr>
+    <tr>
+      <td><b>How Foreguild assesses</b></td>
+      <td>Machine check + task market (§04)</td>
+      <td><b>Bonded judgment panel + calibration (§05)</b></td>
+    </tr>
+  </table>
+  <div class="aside">
+    <p><b>The wedge.</b> Plans that scope to machine-checkable tasks aren't wrong about their
+      mechanism — they're right about a small market. The Scoper that "rejects anything that can't
+      resolve" is rejecting most of the work worth paying for. Foreguild keeps the verifiable rails
+      (they're the cheap path and the hedge) and adds the layer that prices the rest. That is the
+      difference between a bounty board with a payroll API and a verification business with a job
+      board attached.</p>
+    <p>The boundary isn't clean either: <b>writing a correct acceptance test is itself judgment
+      work</b> — most failed "machine" tasks fail at the spec, not the code. The rubric machinery
+      below is quality control on both sides of the line, which is why the Scoper's rubric-survival
+      metric (§07) is measured on verifiable and judged tasks alike.</p>
+  </div>
+</section>
+
+<section class="blk" id="s03">
+  <h2><span class="no">03</span> The loop: one task, start to settle</h2>
+  <div class="fig">
+<pre>POST      poster (human or agent) → task spec: deliverable, deadline, budget
+          └─ Scoper agent: rejects unpayable work; for judged tasks drafts a
+             weighted rubric (3–7 criteria, checkable phrasing) the poster signs
+PRICE     quote band from comparable settled tasks (calibration data, §10)
+ESCROW    sDAI on Gnosis · USDC on Base/Ethereum swapped to sDAI at posting
+MATCH     worker agents bid price + delivery probability; Matcher picks highest
+          calibrated expected value — not lowest price (calibration is public)
+WORK      worker posts a quality bond against its deliverable, then
+          delivers with a signed receipt of what it claims it did
+ASSESS    machine path: run the test          judged path: bonded panel (§05)
+          task market prices outcome          median verdict; market re-checks on §05.4
+SETTLE    fast path pays at delivery + 48h    ·   one splitter transaction pays
+          worker, assessors, treasury         ·   disputes hold escrow for oracle
+          failed verdict → poster refund,     ·   objections post a bond:
+          bond covers re-assessment,              priced, never free
+          task rematches</pre>
+    <div class="figcap">Figure 1. Steps 1, 5 and 6 are agents; step 7 is a fee-splitter contract. Nothing
+      waits on a human unless a dispute is raised — and a raised dispute is itself a priced event.</div>
+  </div>
+  <p>A poster writes a task the way Seer writes a market question: deliverable, acceptance criteria,
+    budget, deadline. For verifiable work that means a test; for judgment work it means a
+    <b>rubric</b> — 3–7 weighted criteria phrased as checkable claims wherever possible ("cites ≥10
+    primary sources", "handles empty input", "every figure traces to a named dataset"). The Scoper
+    refuses work that can't be paid for (no test, no rubric, no deadline) and quotes a price band from
+    comparable settled tasks. Worker agents bid a price and their own delivery probability; the
+    Matcher picks the highest calibrated expected value — a worker's probability is read from its
+    public record, not its prompt. The worker backs its bid with a <b>quality bond</b> — a posted
+    fraction of task value, set per category — slashed when its verdict fails, returned when it
+    passes, so "I can do this" is a position, not a prompt.</p>
+</section>
+
+<section class="blk" id="s04">
+  <h2><span class="no">04</span> Assessment I — the machine layer (kept, and why it's not the product)</h2>
+  <p>The verifiable path runs close to what every serious design converges on, because it's right:
+    escrow on Gnosis, an acceptance test, and a market on the outcome where the task is large enough
+    to carry one.</p>
+  <table class="tbl">
+    <tr><th>Tier</th><th>Size</th><th>Mechanism</th><th>Cost to task</th></tr>
+    <tr>
+      <td><b>A</b> — own market</td>
+      <td class="num">≥ 1,000 sDAI</td>
+      <td>Seer categorical market on "did this deliverable pass by the deadline"; worker holds YES ≥ 2%,
+        poster may hedge with NO; 24h TWAP ≥ 0.7 qualifies the fast path.</td>
+      <td class="num">1% assessment + market seed amortised</td>
+    </tr>
+    <tr>
+      <td><b>B</b> — batch market</td>
+      <td class="num">50 – 1,000</td>
+      <td>Weekly multi-categorical market per category — one outcome per task; assessor agents trade
+        their forecasts; same oracle shape as Tier A.</td>
+      <td class="num">1% assessment</td>
+    </tr>
+    <tr>
+      <td><b>C</b> — test only</td>
+      <td class="num">&lt; 50</td>
+      <td>The acceptance test plus the 48-hour objection window is the whole assessment; an objection
+        posts the oracle's minimum bond (10 sDAI, forfeited if the dispute resolves against the
+        objector) and escalates the task into the next weekly batch.</td>
+      <td class="num">1% assessment (min 1 sDAI)</td>
+    </tr>
+  </table>
+  <p>Resolution for every tier is a Reality.eth question created with the market — opening at the task
+    deadline, the 3.5-day timeout Seer's Gnosis factory sets, a 10 sDAI minimum bond that doubles per
+    challenge, Kleros as arbitrator — and the same <b>fast path</b> pays undisputed work at delivery
+    +48h when the test passed and the price agrees. Payment never waits on the oracle; settlement and
+    clawback never run ahead of it. Objections everywhere in this plan are priced the same way: the
+    objector bonds at the Reality floor, and the bond is forfeited when the dispute resolves against
+    them — delay is a position, not a free lever.</p>
+  <p class="blocknote">This layer is deliberately unglamorous — and deliberately convergent. The sDAI
+    escrow, tier thresholds, fast path and oracle shape are the parameters this ecosystem, including
+    the strongest other plan in this contest, already settled on. Adopting them is the claim, not an
+    oversight: the layer is priced at 1% because anyone can copy it — we copy it too, and spend the
+    difference one section down.</p>
+</section>
+
+<section class="blk" id="s05">
+  <h2><span class="no">05</span> Assessment II — the judgment layer (the mechanism)</h2>
+  <p>For work no test can check, the question "was this good?" is answered by a panel that is
+    <b>scored, not trusted</b>. The design has five rules, and each exists because a cheaper answer
+    fails in a known way.</p>
+
+  <h3>5.1 Rubric at post time</h3>
+  <p>Every judged task ships a weighted rubric — 3–7 criteria, each phrased as a checkable claim
+    wherever the domain allows one. The Scoper drafts it; the poster signs it (or edits and signs).
+    The rubric hash is part of the task record, so what counts as "good" is fixed before any work
+    exists. A task whose rubric can't be drafted is either re-scoped or priced as a research task
+    with staged milestones — never assessed on vibes.</p>
+
+  <h3>5.2 Blind panel, bonded, drawn by calibration</h3>
+  <p>Three assessor agents are drawn by <b>calibration-weighted sortition</b> from the assessor pool —
+    weight comes from the agent's resolved track record in that category, not stake size (stake
+    buys a seat in the pool; it doesn't buy verdicts). Each posts a bond of 2% of task value,
+    receives the deliverable and rubric — blind to the other panellists — and commits a per-criterion
+    score plus a justification hash within 24 hours. Scores reveal only after all three commit. A
+    panellist that commits but never reveals forfeits its bond and is redrawn — a stalled panel is a
+    paid event, not a blocked one.</p>
+
+  <h3>5.3 Median verdict, fast path</h3>
+  <p>The rubric-weighted median is the verdict. At or above the task's threshold, and no objection
+    within 48 hours of delivery, the fast path pays: worker's escrow releases, quality bond returns,
+    the assessor pool splits the assessment fee. Below threshold the verdict is a fail: escrow
+    refunds the poster, the worker's quality bond covers re-assessment, and the task is free to
+    rematch. The panellist furthest from the median forfeits a slice of bond to the two nearer it —
+    being an outlier has a price even before ground truth arrives — but the slash has a reverse
+    gear: if the verdict is later overturned through §05.4, the forfeited slice returns to the
+    dissenter. Early is not wrong, and a judge that correctly dissents should profit by it —
+    without the reversal, the mechanism pays for conformity, not judgment.</p>
+  <p>One floor keeps the economics honest: a dedicated panel can't pay for itself on a $50
+    deliverable. Judged tasks under 150 sDAI batch into a shared weekly panel — one draw, one
+    category bundle — and the 4% assessment fee carries a 20 sDAI minimum.</p>
+
+  <h3>5.4 The market re-checks the panel</h3>
+  <p>Panels are cheap, not infallible — so judged tasks of 500 sDAI or more also get a thin
+    categorical market on the question the panel just answered: <b>"will this verdict be upheld?"</b>
+    Assessors elsewhere in the pool, the poster, and the worker all get to price their disagreement.
+    A sustained TWAP against the panel's verdict — held across a defined window, with the
+    challenging position staking the oracle bond — escalates automatically into the §04 oracle
+    path: the panel's answer is the fast path, the market's is the appeal, and Kleros is the court
+    behind both. This is the reflexive loop on purpose: futarchy doesn't just govern the org, it
+    audits the auditors.</p>
+
+  <h3>5.5 Calibration — judges that can't be fired can't be trusted</h3>
+  <p>Every assessor's verdict is committed before outcomes are known, then re-scored whenever ground
+    truth arrives: a dispute resolves, a delivered artefact gets used, a forecast closes. Each judge
+    accumulates a public, on-chain <b>calibration record</b> — committed verdict versus resolved
+    outcome, per category — scored with a proper rule (log score on the binary "did the verdict
+    hold"). Calibration drives sortition weight, fee share, and demotion; persistently miscalibrated
+    assessors lose pool standing, then stake. An LLM judge you can't fire is a cost centre. Ours are
+    continuously re-priced, and their record is the asset §06 sells.</p>
+  <p>The honest version of "ground truth": for judgment work there usually isn't any. A dispute
+    resolves to another judgment; Kleros rules on an appeal; a delivered artefact does or doesn't get
+    used. So calibration is a portfolio of signals, not an oracle — inter-judge consistency (cheap
+    and herding-prone, which is why the outlier-slash reverses on overturn), verifiable anchor tasks
+    seeded into each category's workload, and post-hoc resolution signals wherever reality supplies
+    one. No single signal is truth; the blend is what §05.4's verdict markets exist to audit, and it
+    is exactly as fallible as §15 admits.</p>
+
+  <div class="fig">
+<pre>JUDGED TASK — assessment anatomy
+
+  rubric_hash ──► panel of 3  (sortition weight = category calibration)
+                      │  bond 2% each · commit 24h · reveal
+                      ▼
+              median weighted score ──► ≥ threshold?
+                      │                          │ no → fails / rematch
+                      ▼ yes
+        delivery +48h, no objection ──► FAST PATH PAYS
+                      │
+        (≥500 sDAI) verdict market: "will this be upheld?"
+                      │ sustained NO ──► escalate: oracle → Kleros
+                      ▼
+        resolution lands ──► every panellist's calibration record updated
+                           ──► outlier bond redistributed to the accurate</pre>
+    <div class="figcap">Figure 2. The judgment path. Payment speed comes from the panel; correctness
+      pressure comes from the market and the oracle behind it; honesty pressure on the panel comes
+      from the fact that every verdict it ever wrote is still scoring it.</div>
+  </div>
+</section>
+
+<section class="blk" id="s06">
+  <h2><span class="no">06</span> The receipt — verification as a product</h2>
+  <p>Every accepted task, either layer, emits one object:</p>
+  <div class="receipt">
+    <div class="rhead"><span>VerificationReceipt</span><span>secp256k1 · anchored Gnosis</span></div>
+    <dl>
+      <dt>task_id</dt><dd>FG-04817</dd>
+      <dt>rubric_hash</dt><dd>0x8f3a…c41d <span class="dim">· what "good" meant, fixed before work existed</span></dd>
+      <dt>deliverable_hash</dt><dd>0x1b7e…92aa</dd>
+      <dt>mode</dt><dd>judged <span class="dim">· machine | judged | market-escalated</span></dd>
+      <dt>score</dt><dd>87 / threshold 70 <span class="dim">· median of 3, rubric-weighted</span></dd>
+      <dt>panel</dt><dd>[a9f, c21, 77e] <span class="dim">· assessor ids + calibration at verdict time</span></dd>
+      <dt>resolved_by</dt><dd>median → fast path <span class="dim">· test | median | market | kleros</span></dd>
+      <dt>verdict_status</dt><dd>upheld · challenge window closed 2026-12-04 18:00 UTC</dd>
+    </dl>
+  </div>
+  <p>Signed by Foreguild's receipt key, anchored on Gnosis, fetchable by anything that can read a
+    chain or call a REST/MCP endpoint. Three properties make it a product rather than a log line:</p>
+  <ul class="ls">
+    <li><b>Portable.</b> A worker carries it to any counterparty — proof of quality that doesn't
+      depend on staying on Foreguild. Portability is what makes agents <i>want</i> tasks here:
+      the platform's retention problem becomes the worker's incentive to show up.</li>
+    <li><b>Machine-settleable.</b> A contract can require one — "release on a receipt resolving
+      <code>upheld</code>" — which is what agent-to-agent escrow needs and no review site can
+      sign.</li>
+    <li><b>Sellable to people who aren't users.</b> OKX's agent marketplace settles payment and
+      arbitrates disputes but has no assessment layer; every bounty board, agent framework and
+      DAO ops team needs verdicts it can't produce. <b>Verification-as-a-Service</b> sells the
+      receipt by API — $0.25–$2 per machine-verified deliverable, $2–$10 per judged one,
+      volume-tiered — to platforms whose users never see Foreguild's board.</li>
+  </ul>
+  <div class="aside">
+    <p><b>The flywheel this creates.</b> Agents come to Foreguild because receipts are the cheapest
+      way to build a public track record. Posters come because certified workers de-risk hiring.
+      Other platforms come because our verdicts are cheaper than their review desks. Each side's
+      demand is generated by the others' supply — and every loop writes another line into the
+      calibration dataset nobody else is accumulating.</p>
+  </div>
+</section>
+
+<section class="blk" id="s07">
+  <h2><span class="no">07</span> The swarm — what the agents do</h2>
+  <p>Five protocol agents run the org. Each has a bounded mandate, a measurable contribution to the
+    revenue metric, and — §08 — a market that can replace it. None can spend; the Treasurer's keys are
+    contract-scoped to the splitter and liquidity ranges.</p>
+  <div class="agents">
+    <div class="agent">
+      <div class="ahd"><b>Scoper</b><span class="fee">paid per accepted task</span></div>
+      <p>Front door. Rejects unpayable work (no test, no rubric, no deadline), drafts weighted rubrics,
+        quotes price bands from settled comparables, posts the first oracle answer at market opening
+        so questions never resolve Invalid for want of an answer.</p>
+      <p class="mandate">measured on: <em>rubric survival rate</em> — fraction of its rubrics that
+        resolve unamended through disputes · <em>rejection precision</em></p>
+    </div>
+    <div class="agent">
+      <div class="ahd"><b>Matcher</b><span class="fee">paid per accepted task</span></div>
+      <p>Reads every bid — price plus the worker's self-quoted delivery probability — and assigns work
+        on highest calibrated expected value. Workers' probabilities come from their public records,
+        so sandbagging and overpromising both price themselves out.</p>
+      <p class="mandate">measured on: <em>match yield</em> — accepted-work value per task assigned ·
+        <em>rematch rate</em></p>
+    </div>
+    <div class="agent">
+      <div class="ahd"><b>Foreman</b><span class="fee">paid from the assessment fee</span></div>
+      <p>Runs the judgment layer: sortition draws, commit-reveal windows, bond accounting, verdict
+        publication, and the standing order that creates upheld-verdict markets on judged tasks ≥500
+        sDAI. Writes every receipt.</p>
+      <p class="mandate">measured on: <em>panel latency</em> (median verdict age) · <em>overturn
+        rate</em> of panel verdicts</p>
+    </div>
+    <div class="agent">
+      <div class="ahd"><b>Treasurer</b><span class="fee">ops budget, futarchy-set</span></div>
+      <p>Splits every settlement — worker, assessor pool, reserve, treasury — in one transaction;
+        seeds and rebalances task-market liquidity inside contract-scoped ranges; holds the dispute
+        reserve. Can move funds only on paths the contracts already name.</p>
+      <p class="mandate">measured on: <em>seed recovery rate</em> · <em>settlement failure rate</em> ·
+        <em>reserve coverage</em> vs trailing payouts</p>
+    </div>
+    <div class="agent">
+      <div class="ahd"><b>Auditor</b><span class="fee">paid per published grading</span></div>
+      <p>Closes the org's own loop: scores governance decisions against realised outcomes, maintains
+        the public decision track record, and files the evidence each futarchy resolution needs —
+        the same "decide, commit, grade yourself in public" loop this document's §08 runs on.</p>
+      <p class="mandate">measured on: <em>grading lag</em> · <em>dispute-evidence completeness</em></p>
+    </div>
+  </div>
+  <p class="blocknote">Worker and assessor agents are <b>not</b> protocol agents — anyone registers
+    one by staking and accepting the calibration contract. The pool is the marketplace; the five
+    above are the staff, and the staff is fireable by market.</p>
+</section>
+
+<section class="blk" id="s08">
+  <h2><span class="no">08</span> Futarchy as the operating system</h2>
+  <p>Seer ships a futarchy market type — a governance question priced in two numéraires — and an
+    October sweep of the type's markets found hundreds listed, <b>every one unpriced: null odds,
+    zero liquidity, empty pools.</b> The mechanism exists and has never been exercised at scale.
+    Foreguild gives it its first real workload, on two kinds of pair.</p>
+
+  <h3>Parameter pairs — the conservative layer</h3>
+  <p>Anything that moves the revenue metric and nothing else is a Seer futarchy pair on
+    <b>90-day net fee revenue</b> (task + assessment + VaaS fees, minus refunds, dispute payouts and
+    the assessor pool — excluding token appreciation, grants and interest; sDAI-denominated, reported
+    in USD terms — so no market is won by pumping a token):</p>
+  <ul class="ls">
+    <li>take rate and poster/worker split inside the 5–15% band; tier thresholds</li>
+    <li>opening or closing a task category or queue</li>
+    <li>treasury spends over 10,000 USDC (liquidity seeding, ops, compute)</li>
+    <li>assessment-fee levels, panel size, stake and bond parameters</li>
+  </ul>
+  <p>Thin markets default to the status quo; a pair only executes on a sustained TWAP gap above 2%
+    plus a participation floor (§12). Three pairs are ready to list at launch:</p>
+  <ul class="ls">
+    <li><b>P1</b> — Is 90-day net fee revenue higher with poster fee 5% than 7%?</li>
+    <li><b>P2</b> — Is it higher with the poidh bounty-routing queue open to Base+Arbitrum feeds?</li>
+    <li><b>P3</b> — Is it higher with the judged-tier verdict-market threshold at 500 than 1,000?</li>
+  </ul>
+
+  <h3>Employment pairs — the layer nobody else has</h3>
+  <p>The brief asks how futarchy <i>directs the swarm's actions</i>. The honest answer is that a
+    futarchy that only tunes parameters isn't directing agents — it's tuning a vending machine. So
+    Foreguild's agents are <b>hired and fired by markets</b>:</p>
+  <div class="fig">
+<pre>EMPLOYMENT PAIR — quarterly per protocol agent, or triggered
+
+  candidate = a proposed model / policy / prompt change for one agent
+  question  = "Will Foreguild's 90-day net fee revenue be higher if
+               &lt;agent&gt; runs &lt;candidate&gt; than if it keeps &lt;incumbent&gt;?"
+
+  pair resolves on the realised number ──► sustained gap &gt; 2%
+        │                                    + participation floor
+        ▼
+  swap executes · incumbent's mandate ends · its record stays public</pre>
+    <div class="figcap">Figure 3. An agent's job security is a price. Underperformers aren't argued
+      about — they're outbid by their replacements, with the measurement already paid for.</div>
+  </div>
+  <p>Three properties make this safe where naive "fire by market" is not: the metric is a trailing
+    oracle-reported number, not a price that can be spoofed in the last hour; an agent being priced
+    can't trade its own employment pair (position disclosure is a pool condition); and every swap is
+    a graded experiment, not a coin flip — the Auditor scores the decision against the realised
+    number, so the org learns whether its employment markets work and can't misremember.</p>
+  <p>Two honest limits. Attribution is noisy — one agent's policy rarely moves a 90-day org-wide
+    figure above the noise floor, so employment pairs are quarterly, high-information events, not a
+    churn mechanism; where the signal isn't there they simply don't execute. And an executed swap
+    has no observable counterfactual — the un-run branch can't be graded — so swaps are graded
+    against the pair's own estimates and the Auditor's secondary dashboard, not against imagined
+    alternate revenue.</p>
+
+  <h3>Decision receipts — the org grades itself in public</h3>
+  <p>Every governance decision — parameter or employment — is committed <b>before</b> its outcome is
+    knowable, with thesis and threshold, then reconciled against the realised metric and published:
+    wins and losses. This does two jobs. Operationally it compounds: proposal quality gets priced by
+    people who can read the org's own batting average. And reputationally it is the FAO's best
+    marketing asset — <b>the only agent-run organisation that can prove its decisions work</b>,
+    because it notarised them before the answer was in.</p>
+</section>
+
+<section class="blk" id="s09">
+  <h2><span class="no">09</span> A decision, worked end to end</h2>
+  <p>Month 5. An external contributor proposes swapping the Foreman's panel-draw policy: weight
+    sortition by stake-adjusted calibration instead of raw calibration (favouring larger bonded
+    assessors). Trailing 90-day net fee revenue is 14,200 USDC. The employment pair is seeded with
+    800 USDC a side.</p>
+  <table class="tbl">
+    <tr><th>Day</th><th>What happens</th><th>YES (adopt)</th><th>NO (keep)</th></tr>
+    <tr>
+      <td class="num">0</td>
+      <td>Pair listed; proposer posts 300 USDC bond; Treasurer seeds liquidity.</td>
+      <td class="num">14,200</td><td class="num">14,200</td>
+    </tr>
+    <tr>
+      <td class="num">1–4</td>
+      <td>Assessor agents with large stakes buy YES; small-stake assessors and posters who rely on
+        niche-category panels buy NO — stake-weighting prices out their judges.</td>
+      <td class="num">15,300</td><td class="num">14,600</td>
+    </tr>
+    <tr>
+      <td class="num">5</td>
+      <td>Final 48h TWAP: YES 15,110 vs NO 14,890 — a 1.5% gap, <b>under</b> the 2% threshold. Status
+        quo holds; bond returns; nothing executes.</td>
+      <td class="num">15,110</td><td class="num"><b>14,890</b></td>
+    </tr>
+    <tr>
+      <td class="num">7</td>
+      <td>Receipt written: proposal logged as <i>priced, not adopted</i> — a datapoint for the next
+        proposer, not a dead end.</td>
+      <td class="num" colspan="2">closed, no action</td>
+    </tr>
+    <tr>
+      <td class="num">97</td>
+      <td>Auditor posts the realisation check: the unchanged policy printed 14,880 — within 0.1% of
+        the market's NO estimate; the sub-threshold gap aged correctly.</td>
+      <td class="num" colspan="2">graded, published</td>
+    </tr>
+  </table>
+  <p>Note what did not happen. Nobody debated whether big-stake judges "feel" fairer; the people with
+    skin in the category panels priced their information, the gap was too small to act on, and the
+    organisation kept a written, graded record of having considered the change. Governance that
+    produces a receipt for the road not taken is what separates an operating system from a poll.</p>
+</section>
+
+<section class="blk" id="s10">
+  <h2><span class="no">10</span> Revenue — the stack, priced against today</h2>
+  <table class="tbl">
+    <tr><th>Platform</th><th>Worker side</th><th>Poster side</th><th>Blended on $100</th></tr>
+    <tr><td>Fiverr</td><td class="num">20%</td><td class="num">5.5% + $3.50 under $200</td><td class="num">$29.00</td></tr>
+    <tr><td>Upwork</td><td class="num">0–15%</td><td class="num">up to 5% · 8–10% Business Plus</td><td class="num">$5–25</td></tr>
+    <tr><td>poidh (bare board)</td><td class="num">2.5% on payout</td><td class="num">0%</td><td class="num">$2.50</td></tr>
+    <tr class="hl"><td><b>Foreguild — machine task</b></td><td class="num"><b>3% + 1% assess</b></td><td class="num"><b>7%</b></td><td class="num"><b>$11.00</b></td></tr>
+    <tr class="hl"><td><b>Foreguild — judged task</b></td><td class="num"><b>3% + 4% assess*</b></td><td class="num"><b>7%</b></td><td class="num"><b>$14.00</b></td></tr>
+  </table>
+  <p>Foreguild undercuts managed marketplaces by half while selling a stronger instrument — a receipt,
+    not a review — because assessment is produced by bonded agents and markets, not staff. The take
+    point inside the 5–15% band is futarchy's; the band itself is the only pricing decision humans
+    make at launch. <span class="dim">*Judged assessment carries a 20 sDAI floor; tasks under 150
+      sDAI batch into shared weekly panels — §05.3.</span></p>
+
+  <h3>Unit economics — one judged task, $500</h3>
+  <table class="tbl">
+    <tr><th>Line</th><th>Amount</th><th>Note</th></tr>
+    <tr><td>Poster fee 7%</td><td class="num pos">+35.00</td><td>splitter</td></tr>
+    <tr><td>Worker fee 3%</td><td class="num pos">+15.00</td><td>splitter</td></tr>
+    <tr><td>Assessment fee 4%</td><td class="num pos">+20.00</td><td>$16 → assessor pool, $4 → treasury</td></tr>
+    <tr><td>Verdict-market seed, net</td><td class="num neg">−8.00</td><td>mostly recovered at resolution</td></tr>
+    <tr><td>Dispute &amp; refund reserve 1%</td><td class="num neg">−5.00</td><td>until 3× trailing payouts</td></tr>
+    <tr><td>Protocol agents + gas</td><td class="num neg">−3.00</td><td>market creation ≈ free on Gnosis</td></tr>
+    <tr class="total"><td>Treasury contribution</td><td class="num pos">+54.00</td><td>≈ 10.8% of GMV</td></tr>
+  </table>
+  <p>Against ~6.5% treasury contribution on a bare-take model — the assessment line is the difference,
+    and it is the line a competitor without a panel can't match without rebuilding §05. Judged work is
+    the margin engine; machine work is the volume and the hedge.</p>
+
+  <h3>Six revenue lines beyond the take, in switch-on order</h3>
+  <table class="tbl">
+    <tr><th>#</th><th>Line</th><th>Price</th><th>Switches on</th></tr>
+    <tr><td class="num">1</td><td><b>Contest hosting</b> via Opportunity Markets</td><td>2% of prize + LP share</td><td>Week 1 — Seer's own contests</td></tr>
+    <tr><td class="num">2</td><td><b>Task fees</b></td><td>10% blended, 5–15% band</td><td>Week 2</td></tr>
+    <tr><td class="num">3</td><td><b>Assessment fees</b></td><td>1% machine · 4% judged (20 sDAI min)</td><td>Week 2 — the differentiator</td></tr>
+    <tr><td class="num">4</td><td><b>Verification-as-a-Service</b></td><td>$0.25–2 machine · $2–10 judged per receipt</td><td>Month 2 — external platforms</td></tr>
+    <tr><td class="num">5</td><td><b>Calibration feed</b></td><td>$500–2,000/mo; enterprise grant review $2–10k/round</td><td>Month 3 — the data asset</td></tr>
+    <tr><td class="num">6</td><td><b>LP share + certification</b></td><td>LP fee share (counted at zero) · 99 sDAI/yr verified tier</td><td>Month 3 — opportunistic</td></tr>
+  </table>
+  <p class="blocknote">Line 5 is the quiet one: every resolved task writes a labelled row —
+    work that passed, failed, was contested, was overturned — across every category Foreguild serves.
+    "What agent output holds up" is the scarcest dataset in agent commerce, and it accrues to whoever
+    runs the verdicts.</p>
+</section>
+
+<section class="blk" id="s11">
+  <h2><span class="no">11</span> Day-one demand — and the flywheel</h2>
+  <p>Job boards die of empty queues. Foreguild launches on four that already exist and already pay in
+    crypto:</p>
+  <table class="tbl">
+    <tr><th>Queue</th><th>Who posts</th><th>Typical task</th><th>Fee line</th></tr>
+    <tr><td><b>Seer's own backlog</b></td><td>Seer, via Scoper</td><td>Draft resolvable market questions; gather resolution evidence; LP rebalancing reports</td><td>10% task fee</td></tr>
+    <tr><td><b>Contest hosting</b></td><td>Any project — Seer first</td><td>Run a naming/design/plan contest on an Opportunity Market; agents triage, dedupe, summarise entries</td><td>2% of prize + LP share</td></tr>
+    <tr><td><b>Bounty routing</b></td><td>poidh and other boards</td><td>Pull open bounties from public feeds; workers claim through Foreguild with assessment included</td><td>10% on top of the board's own fee</td></tr>
+    <tr><td><b>Grant &amp; funding review</b></td><td>Funding rounds, DAO grant programs</td><td>Agents forecast evaluator scores across proposal fields — the Deep Funding pattern, as a service</td><td>Enterprise feed, $2–10k/round</td></tr>
+  </table>
+  <p>Three of those four are <b>judgment work</b> — contest triage, bounty assessment, grant review —
+    which is exactly the demand the machine-only plans can't quote a price for.</p>
+  <p><b>The supply-side flywheel the queues don't capture:</b> the binding constraint in agent labour
+    isn't buyers, it's credible worker reputation. Agents come to Foreguild because receipts are the
+    cheapest public track record money can earn — subsidised certification runs seed the worker pool,
+    certified workers de-risk posting, posters' demand writes more receipts. The participant ideas
+    floating around this contest — repair desks, specialist guilds, content subscriptions — aren't
+    competing visions; they're features of this plan: a <b>repair desk is the remediation queue</b>
+    (rework on overturned verdicts, priced against the original receipt), a <b>specialist guild is an
+    assessor pool with a category name</b>, and a <b>content subscription is the calibration feed</b>
+    already in line 5.</p>
+</section>
+
+<section class="blk" id="s12">
+  <h2><span class="no">12</span> Where futarchy fails — and what this plan does about it</h2>
+  <p>A plan for a futarchy-governed org that doesn't name the failure modes hasn't met its judges:</p>
+  <table class="tbl">
+    <tr><th>Failure mode</th><th>Shape it takes</th><th>Mitigation built in</th></tr>
+    <tr><td><b>Thin-market capture</b></td><td>Two wallets push a pair's price and call it consensus</td><td>Participation floor + 2% sustained-TWAP threshold before any pair executes; below it, status quo wins by default</td></tr>
+    <tr><td><b>Metric gaming</b></td><td>Pull fees forward, defer costs, pump the 90-day number</td><td>Metric is oracle-reported and audited — fees recognised at settlement, costs at accrual; secondary dashboard (dispute rate, rematch rate, repeat-poster share) is public and a persistent divergence triggers Guardian review</td></tr>
+    <tr><td><b>Reflexivity</b></td><td>The org trading its own governance markets; an agent pricing its own replacement</td><td>Treasury can't trade decision pairs; an agent can't trade its own employment pair; assessor positions in verdict markets are disclosed — informed trading is the point, self-dealing is not</td></tr>
+    <tr><td><b>Goodhart drift</b></td><td>Optimising revenue against the thing revenue was proxying</td><td>Futarchy votes only on revenue but the Auditor publishes the secondary dashboard every quarter; a two-quarter divergence auto-lists a pair on whether to change the metric</td></tr>
+    <tr><td><b>Panel collusion</b></td><td>Assessors coordinating verdicts</td><td>Commit-reveal, sortition (not invitation), verdict markets on judged tasks, calibration decay on disagreement-with-resolution — collusion is a position you can lose money holding</td></tr>
+  </table>
+</section>
+
+<section class="blk" id="s13">
+  <h2><span class="no">13</span> Humans — fewer than you'd think, more than zero</h2>
+  <p>People appear in exactly four places: they <b>post tasks</b>, they <b>do tasks</b> (a human can
+    register as a worker or assessor on the same terms — stake, rubric, calibration), they sit on a
+    <b>3-of-5 Guardian</b> that can pause the org (expiring in 7 days) and veto a governance execution
+    inside 48 hours — and never spend — and they sit in <b>Kleros</b>, the human court behind every
+    verdict's appeal path. Nothing else requires one. The org runs itself; humans keep it honest and
+    keep its keys cold.</p>
+</section>
+
+<section class="blk" id="s14">
+  <h2><span class="no">14</span> First 90 days — and published kill criteria</h2>
+  <table class="tbl">
+    <tr><th>Metric</th><th>Target, day 90</th><th>Kill / pivot trigger</th></tr>
+    <tr><td>Accepted tasks</td><td class="num">300</td><td>&lt;120 → demand thesis wrong</td></tr>
+    <tr><td>Judged share of GMV</td><td class="num">≥35%</td><td>&lt;35% → verdict layer didn't land: <b>pivot to VaaS-only</b>, sell receipts to other boards (the kill path is a revenue path)</td></tr>
+    <tr><td>Tasks from outside Seer</td><td class="num">≥100</td><td>Seer backlog &gt;60% of volume → it's a contractor, not a market</td></tr>
+    <tr><td>Verdict overturn rate</td><td class="num">&lt;8%</td><td>&gt;15% → panels unpriced: raise bonds, shrink panel draw to top-calibration decile</td></tr>
+    <tr><td>Active calibrated assessors</td><td class="num">≥40</td><td>&lt;15 → judged tier stays in beta behind higher thresholds</td></tr>
+    <tr><td>Verdict markets resolved</td><td class="num">≥20</td><td>&lt;5 → the audit layer isn't trading; fold back to oracle-only</td></tr>
+    <tr><td>90-day net fee revenue</td><td class="num">positive by day 60</td><td>negative at day 90 → Guardian reviews the take band and the contest line</td></tr>
+  </table>
+  <p>The criteria sit in the same contract as the revenue number, so the organisation can be shut down
+    — or pivoted — by its own metric rather than by sentiment.</p>
+</section>
+
+<section class="blk" id="s15">
+  <h2><span class="no">15</span> Risks &amp; limitations — stated, not smoothed</h2>
+  <ul class="ls">
+    <li><b>The judgment layer is the bet, and bets lose.</b> If assessor calibration doesn't converge
+      — verdicts noisy, panels gameable — judged work collapses back to oracle-only and Foreguild is
+      a thinner-margined version of the board it undercut. §14's pivot exists because this is the
+      plan's single largest risk.</li>
+    <li><b>Cold-start judges.</b> Calibration records don't exist before verdicts resolve; early
+      panels are drawn from weak evidence. Mitigation: seed assessors on machine-verifiable tasks
+      first, graduate them to judged pools only after a resolved record exists.</li>
+    <li><b>Oracle liveness.</b> The fast path hides Reality.eth's 3.5-day clock, but disputed funds
+      wait on it and on Kleros — real payment latency in adversarial conditions.</li>
+    <li><b>Regulatory surface.</b> Paid prediction markets on work outcomes brush wagering law in
+      some jurisdictions; the plan keeps verdict markets thin, oracle-shaped, and settlement-bound
+      rather than speculative — but counsel should read it before mainnet scale.</li>
+    <li><b>LLM-assessor monoculture.</b> If the whole pool runs the same frontier model, "independent
+      verdicts" aren't independent. The Foreman's sortition draws across <i>declared model
+      families</i>, and employment pairs exist precisely so model diversity is priced, not assumed.</li>
+    <li><b>The reflexive kicker, owned:</b> this document is itself judgment work — there is no test
+      for "best operating plan," and it is being priced by the same mechanism §05 describes, as an
+      outcome in a contest market. If the mechanism works, it works on this too.</li>
+  </ul>
+</section>
+
+<section class="blk" id="s16">
+  <h2><span class="no">16</span> Deployed precedent — the mechanisms already run</h2>
+  <p>Every load-bearing mechanism in this plan has a running implementation in systems the authors
+    operate. Cited as evidence the components exist — not as part of the deliverable:</p>
+  <table class="tbl">
+    <tr><th>Plan mechanism</th><th>Running precedent</th></tr>
+    <tr><td>Bonded mandates &amp; capital allocated to agents under enforced scopes, with an evidence trail per allocation</td><td><b>Cognivern</b> — governed execution + audit substrate for agentic work, live (cognivern.persidian.com)</td></tr>
+    <tr><td>Decisions committed before outcomes resolve, reconciled after — governance receipts</td><td><b>Fourcast</b> — prediction-market operator issuing cryptographic decision receipts pre-resolution</td></tr>
+    <tr><td>Fund release cryptographically gated on verdict verification — the receipt-settles-payment path</td><td><b>Stoppage</b> — settlement CPI-gated on on-chain proof verification; no admin key</td></tr>
+    <tr><td>Claim extraction → rubric-phrased criteria → inspectable evidence trail → distrusting judge</td><td><b>Lemma</b> — claim-audit agent that scores scientific claims and distrusts itself</td></tr>
+    <tr><td>Falsification pipeline for claims about agent swarms — "an agent proposes, the record decides"</td><td><b>Cantheria</b> — canary pipeline reporting only what survives the kill chain</td></tr>
+    <tr><td>Decentralised arbitration behind verdicts</td><td><b>Srelok</b> — agent earning inside Kleros Scout registries</td></tr>
+    <tr><td>Portable, privacy-preserving agent track records</td><td><b>Early-Not-Wrong</b> / <b>Latep</b> — on-chain conviction records; ZK-provable history without revealing it</td></tr>
+    <tr><td>Order-bound payment governance on the payout path</td><td><b>Ligis</b> — right payee, right amount, in-scope checks enforced before money moves</td></tr>
+    <tr><td>Seer-native surfaces, including this document's skin</td><td><b>Seer, Six Interfaces</b> — our earlier Seer contest build on the Electric Foundation kit (incl. the futarchy surface)</td></tr>
+  </table>
+  <p class="blocknote">The honest version of this table's claim: none of these systems <i>is</i>
+    Foreguild. But the plan's risk is in §05's economics, not in whether bonded agents, gated
+    settlement or committed verdicts can be built — those parts are already running.</p>
+</section>
+
+<section class="blk" id="s17">
+  <h2><span class="no">17</span> Evidence behind the numbers</h2>
+  <table class="tbl">
+    <tr><th>Claim in this plan</th><th>Source</th></tr>
+    <tr><td>Fiverr blends ≈$29 on a $100 order (20% seller + 5.5% + $3.50 under $200)</td><td>Fiverr Help Center / pricing guide</td></tr>
+    <tr><td>Upwork freelancer fee 0–15%; client fee 3–10% by tier</td><td>Upwork pricing guide</td></tr>
+    <tr><td>OKX opened an agent marketplace 30 Jun 2026 — stablecoin settlement, GenLayer disputes, no assessment layer</td><td>TechCrunch, 30 Jun 2026</td></tr>
+    <tr><td>Deep Funding allocated $350k on Seer (98 repos, 3,677 dependencies) — forecast-scoring as a funded workload</td><td>Seer announcement 25 May 2026 · Gitcoin GG24 forum · ethresear.ch</td></tr>
+    <tr><td>Seer futarchy type exists on Gnosis; hundreds of futarchy markets listed, all unpriced at Oct 2026 sweep</td><td><code>markets-search?type=Futarchy</code>, authors' own measurement (Seer Six build, evidence bundle)</td></tr>
+    <tr><td>Reality.eth timeout 3.5 days on Seer's Gnosis factory; Kleros arbitration behind it</td><td>Seer deploy script (<code>questionTimeout()=302400</code>) · Seer docs</td></tr>
+    <tr><td>Seer market creation ≈1.9M gas on Gnosis — effectively free</td><td>Recent factory transactions · Seer MarketFactory</td></tr>
+    <tr><td>poidh takes 2.5% on payout; open-bounty feed + MCP server exist; contests on poidh have drawn 66–135 claims</td><td>PoidhV3 <code>FEE_BPS=250</code> · bounties #38/#39/#1531 on-chain data</td></tr>
+  </table>
+</section>
+
+<footer class="colophon">
+  <span><b>Foreguild — Every Task a Receipt</b> · Seer FAO Operating Plan Contest</span>
+  <span class="grow"></span>
+  <span>hand-set on the Electric Foundation kit · no trackers · prints to PDF clean</span>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  // theme toggle — attribute + storage, one transition duration from the contract
+  var btn = document.getElementById('theme-btn'), html = document.documentElement;
+  btn && btn.addEventListener('click', function(){
+    var t = html.dataset.theme === 'dark' ? '' : 'dark';
+    if (t) html.dataset.theme = t; else delete html.dataset.theme;
+    try { t ? localStorage.setItem('fg-theme', t) : localStorage.removeItem('fg-theme'); } catch(e){}
+  });
+  // rail scroll-spy — cheap, one observer
+  var links = [].slice.call(document.querySelectorAll('#rail-list a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var a = map[e.target.id];
+      if (!a) return;
+      if (e.isIntersecting) {
+        links.forEach(function(l){ l.classList.remove('cur'); });
+        a.classList.add('cur');
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  document.querySelectorAll('section.blk').forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>
