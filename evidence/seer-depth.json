@@ -1,0 +1,24 @@
+{
+  "measured_at": "2026-11-16T13:29:10Z",
+  "method": {
+    "futarchy": "POST https://app.seer.pm/.netlify/functions/markets-search {\"limit\":500,\"page\":1,\"type\":\"Futarchy\"} \u2014 all 398 rows inspected",
+    "claims": "POST https://poidh.xyz/api/mcp tools/call get_bounty {\"id\":1531,\"chain\":\"base\"} \u2014 all 84 claim records inspected"
+  },
+  "seer_futarchy": {
+    "markets_total": 398,
+    "has_liquidity_flag_true": 0,
+    "liquidityUSD_gt0": 0,
+    "volumeUSD_gt0": 0,
+    "any_outcome_odds_gt0": 0,
+    "payout_reported": 53,
+    "liquidityUSD_total": 0.0
+  },
+  "poidh_bounty_1531": {
+    "claims_total": 84,
+    "claims_with_hosted_plan_url": 79,
+    "accepted": 0,
+    "bounty_status": "In progress",
+    "accepting_claims": true,
+    "note": "claim count is a superset of serious plans; ~30 also visible as public GitHub repos"
+  }
+}
